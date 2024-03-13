@@ -1,12 +1,14 @@
 #pragma once
-class BoxOfDonuts
+#include "Item.h"
+
+class BoxOfDonuts : public Item
 {
-public:
-	int count;
 public:
 	BoxOfDonuts();
 public:
-	const void Description();
-	void Use();
+	virtual const void Description();
+	virtual void Use();
+public:
+	int count;
 };
 

@@ -1,7 +1,8 @@
 #include "BoxOfDonuts.h"
-
+// child class of item
 BoxOfDonuts::BoxOfDonuts()
 {
+	count = 6;
 }
 
 const void BoxOfDonuts::Description()
@@ -11,4 +12,5 @@ const void BoxOfDonuts::Description()
 
 void BoxOfDonuts::Use()
 {
+	count -= 1;
 }
