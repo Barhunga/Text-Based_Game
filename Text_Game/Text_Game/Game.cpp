@@ -3,11 +3,6 @@
 
 Game::Game()
 {
-	for (int x = 0; x < 5; x++) {
-		for (int y = 0; y < 9; y++) {
-			map[x][y] = '-';
-		}
-	}
 	player = new Player;
 }
 
@@ -19,44 +14,42 @@ Game::~Game()
 
 void Game::Run()
 {
-	while (player->x != 0 && player->y != 8){
+	system("cls");
+	cout << R"( 
+	Good morning! Well, actually maybe not so much today...
+	 You seem to have washed ashore on an island you don't
+	    recognise. Slowly, you rise to your feet as you 
+	          hear an old man rambling up ahead.
+	)" << endl; 
+	player->Move();
+	cout << R"( 
+	       The old man comes running right up to you!
+	You don't understand a single word of what he says, but
+	 he hands you what seems to be a map of the island and
+	                  walks off. Score!
+	)" << endl; 
+	system("pause");
+	while (player->x != room.map_height - 3 || player->y != room.map_length){
 		system("cls"); 
 		Print_Map(); 
-		Move(); 
+		room.Description(player->x, player->y); 
+		player->Move(); 
 	}
+	cout << "\nYou win!\n";
 }
 
 void Game::Print_Map()
 {
-	for (int x = 0; x < 5; x++) {
-		for (int y = 0; y < 9; y++) {
+	for (int x = 0; x < room.map_height; x++) {
+		for (int y = 0; y < room.map_length; y++) {
 			if (x == player->x && y == player->y) {
-				cout << " P";
+				cout << " O";
 			}
-			else cout << " " << map[x][y];
+			else cout << " " << room.room_map[x][y];
 		}
 		cout << endl;
 	}
 	cout << endl;
 }
 
-void Game::Move()
-{
-	cout << "Which direction would you like to move?\n";
-	String input;
-	String* input_02 = new String();
-	input.ReadFromConsole();
-	if (input.ToLower().EqualTo("up") == true) {
-		player->x--;
-	} 
-	else if (input.ToLower().EqualTo("down") == true) {
-		player->x++;
-	}
-	else if (input.ToLower().EqualTo("left") == true) {
-		player->y--;
-	}
-	else if (input.ToLower().EqualTo("right") == true) {
-		player->y++;
-	}
-}
 

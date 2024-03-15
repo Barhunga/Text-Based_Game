@@ -72,7 +72,7 @@ const char& String::CharacterAt(size_t _index) const
 // Returns true if _other contains the same characters.
 bool String::EqualTo(const String& _other) const
 {
-	for (size_t i = 0; i < Length(); i++) {
+	for (size_t i = 0; i < Length() || i < _other.Length(); i++) { 
 		if (_string[i] != _other._string[i]) {
 			return false;
 		}
@@ -253,7 +253,7 @@ String& String::Replace(const String& _find, const String& _replace)
 // Wait for input in the console window and store the result
 String& String::ReadFromConsole()
 {
-	cout << "Enter string\n";
+	cout << "Enter input\n";
 	char input[1000];
 	cin.getline(input, 1000);
 	*this = input;

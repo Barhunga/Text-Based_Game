@@ -19,8 +19,8 @@ int main()
     )" << endl;    
 
     system("pause");
-    Game* game = new Game; 
-    game->Run();
+    Game game; 
+    game.Run();
 
 }
 

@@ -9,10 +9,8 @@ public:
 public:
 	void Run();
 	void Print_Map();
-	void Move();
 public:
-	Room rooms; // [][] 
+	Room room; // [][] 
 	Player* player;
-	char map[5][9];
 };
 

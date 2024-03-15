@@ -10,6 +10,7 @@ public:
 	Player();
 	~Player();
 public:
+	void Move();
 	bool Find_Spell(String spell);
 public:
 	vector<String> spells;
