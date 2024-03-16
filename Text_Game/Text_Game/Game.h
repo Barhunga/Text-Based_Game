@@ -8,6 +8,8 @@ public:
 	~Game();
 public:
 	void Run();
+	void Intro();
+	void Ending();
 	void Print_Map();
 public:
 	Room room; // [][] 

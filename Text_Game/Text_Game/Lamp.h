@@ -4,7 +4,7 @@ class Lamp : public Item
 {
 public:
 	Lamp();
-public: 
+private: 
 	bool turned_on;
 };
 
