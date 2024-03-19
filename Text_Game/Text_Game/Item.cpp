@@ -1,2 +1,2 @@
 #include "Item.h"
-// parent class for items
+// interface class for items

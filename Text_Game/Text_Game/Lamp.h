@@ -4,7 +4,10 @@ class Lamp : public Item
 {
 public:
 	Lamp();
-private: 
+public:
+	const void Description() override;
+	void Use() override;
+public: 
 	bool turned_on;
 };
 

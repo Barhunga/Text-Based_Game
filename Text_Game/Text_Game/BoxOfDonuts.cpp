@@ -1,5 +1,5 @@
 #include "BoxOfDonuts.h"
-// child class of item
+
 BoxOfDonuts::BoxOfDonuts()
 {
 	count = 6;

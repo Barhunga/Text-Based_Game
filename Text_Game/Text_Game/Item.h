@@ -5,8 +5,8 @@ using namespace std;
 class Item
 {
 public:
-	const void Description(); 	// doesnt like virtual?
-	void Use();					// doesnt like virtual?
+	virtual const void Description() = 0; 	
+	virtual void Use() = 0;					
 };
 
-// compass, book (lamp?) and key?
+// key and secret co-ordinates?

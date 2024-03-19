@@ -6,8 +6,8 @@ class BoxOfDonuts : public Item
 public:
 	BoxOfDonuts();
 public:
-	virtual const void Description() /*override*/;
-	virtual void Use() /*override*/;
+	const void Description() override; 
+	void Use() override; 
 public:
 	int count;
 };

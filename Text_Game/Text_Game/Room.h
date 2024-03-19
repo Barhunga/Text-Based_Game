@@ -1,20 +1,21 @@
 #pragma once
 #include "String.h"
 #include "Item.h"
+#include "Lamp.h"
 
 class Room
 {
 public:
 	Room();
-	Room(String descript, Item* item);
 	~Room();
 public:
 	const void Description(int x, int y);
 public:
-	Item* item;
+	Lamp* lamp;
 	String description;
 	int map_height;
 	int map_length;
-	char room_map[7][13];
+	int full_length;
+	char room_map[9][18];
 };
 

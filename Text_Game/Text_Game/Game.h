@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Room.h"
 class Game
-{// runs the game
+{
 public:
 	Game();
 	~Game();
@@ -11,8 +11,9 @@ public:
 	void Intro();
 	void Ending();
 	void Print_Map();
+	void Move();
 public:
-	Room room; // [][] 
+	Room room; 
 	Player* player;
 };
 
