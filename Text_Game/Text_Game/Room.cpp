@@ -47,6 +47,7 @@ Room::~Room()
 const void Room::Description(int x, int y)
 {
 	if (room_map[x][y] == 'p') {
+		cout << "\nIt seems dark in here...\n";
 		room_map[x][y] = '-';
 	}
 	else if (room_map[x][y] == 'l') {
@@ -55,9 +56,9 @@ const void Room::Description(int x, int y)
 		lamp->Description();
 	}
 	else if (room_map[x][y] == 'b') {
-		item = new Book;
+		book = new Book;
 		room_map[x][y] = '-';
-		item->Description();
+		book->Description();
 	}
 	else if (room_map[x][y] == 'k') {
 		key = new Key;

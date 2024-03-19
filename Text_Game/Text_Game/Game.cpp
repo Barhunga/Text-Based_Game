@@ -76,19 +76,19 @@ void Game::Move()
 {
 	cout << "\nWhich direction would you like to move? (Up/Down/Left/Right)\n";
 	if (room.lamp) cout << "Use lamp: L\n";
-	if (room.item) cout << "Read book: B\n";
+	if (room.book) cout << "Read book: B\n";
 	if (room.key) cout << "Keys: " << room.key->count << endl;
 	String* input = new String();
 	input->ReadFromConsole();
 	input->ToLower();
-	if (input->EqualTo("w") == true) {
+	if (input->EqualTo("up") == true) {
 		if (room.room_map[player->x - 1][player->y] && room.room_map[player->x - 1][player->y] != ' ') player->x--;
 		else {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
 			Move();
 		}
 	}
-	else if (input->EqualTo("s") == true) {
+	else if (input->EqualTo("down") == true) {
 		if (room.room_map[player->x + 1][player->y] && room.room_map[player->x + 1][player->y] != ' ') player->x++;
 		else if (player->y >= room.map_length && player->x != room.map_height - 1) {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
@@ -99,14 +99,14 @@ void Game::Move()
 			Move();
 		}
 	}
-	else if (input->EqualTo("a") == true) {
+	else if (input->EqualTo("left") == true) {
 		if (room.room_map[player->x][player->y - 1] && room.room_map[player->x][player->y - 1] != ' ') player->y--;
 		else {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
 			Move();
 		}
 	}
-	else if (input->EqualTo("d") == true) {
+	else if (input->EqualTo("right") == true) {
 		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ' && room.room_map[player->x][player->y + 1] != 'p') player->y++;
 		else if (room.room_map[player->x][player->y + 1] == 'p' && room.key) {
 			cout << "\nYou found a secret panel in the wall! What's going on here???\n";
@@ -125,8 +125,8 @@ void Game::Move()
 		}
 		else room.lamp->Use();
 	}
-	else if (input->EqualTo("b") && room.item != nullptr) {
-		room.item->Use();
+	else if (input->EqualTo("b") && room.book != nullptr) {
+		room.book->Use();
 		}
 	else {
 		cout << "\nNot a valid input.\n";

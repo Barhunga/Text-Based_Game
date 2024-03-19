@@ -14,7 +14,7 @@ public:
 	const void Description(int x, int y);
 public:
 	Lamp* lamp;
-	Item* item;
+	Item* book;
 	Key* key;
 	String description;
 	int map_height;
