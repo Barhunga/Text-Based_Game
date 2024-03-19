@@ -74,7 +74,10 @@ void Game::Print_Map()
 
 void Game::Move()
 {
-	cout << "\nWhich direction would you like to move?\n";
+	cout << "\nWhich direction would you like to move? (Up/Down/Left/Right)\n";
+	if (room.lamp) cout << "Use lamp: L\n";
+	if (room.item) cout << "Read book: B\n";
+	if (room.key) cout << "Keys: " << room.key->count << endl;
 	String* input = new String();
 	input->ReadFromConsole();
 	input->ToLower();
@@ -87,7 +90,7 @@ void Game::Move()
 	}
 	else if (input->EqualTo("s") == true) {
 		if (room.room_map[player->x + 1][player->y] && room.room_map[player->x + 1][player->y] != ' ') player->x++;
-		else if (player->x == room.map_height - 2) {
+		else if (player->y >= room.map_length && player->x != room.map_height - 1) {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
 			Move(); 
 		}
@@ -104,7 +107,12 @@ void Game::Move()
 		}
 	}
 	else if (input->EqualTo("d") == true) {
-		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ') player->y++;
+		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ' && room.room_map[player->x][player->y + 1] != 'p') player->y++;
+		else if (room.room_map[player->x][player->y + 1] == 'p' && room.key) {
+			cout << "\nYou found a secret panel in the wall! What's going on here???\n";
+			room.key->Use();
+			player->y++;
+		}
 		else {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
 			Move();
@@ -117,6 +125,9 @@ void Game::Move()
 		}
 		else room.lamp->Use();
 	}
+	else if (input->EqualTo("b") && room.item != nullptr) {
+		room.item->Use();
+		}
 	else {
 		cout << "\nNot a valid input.\n";
 		Move();

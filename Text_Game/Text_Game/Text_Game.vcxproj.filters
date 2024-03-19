@@ -30,10 +30,10 @@
     <ClCompile Include="Lamp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BoxOfDonuts.cpp">
+    <ClCompile Include="Key.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cat.cpp">
+    <ClCompile Include="Book.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Spell.cpp">
@@ -59,10 +59,10 @@
     <ClInclude Include="Lamp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BoxOfDonuts.h">
+    <ClInclude Include="Key.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cat.h">
+    <ClInclude Include="Book.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Spell.h">

@@ -127,8 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BoxOfDonuts.cpp" />
-    <ClCompile Include="Cat.cpp" />
+    <ClCompile Include="Key.cpp" />
+    <ClCompile Include="Book.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Lamp.cpp" />
@@ -139,8 +139,8 @@
     <ClCompile Include="Text_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoxOfDonuts.h" />
-    <ClInclude Include="Cat.h" />
+    <ClInclude Include="Key.h" />
+    <ClInclude Include="Book.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Lamp.h" />

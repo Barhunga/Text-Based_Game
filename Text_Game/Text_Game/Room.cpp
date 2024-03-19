@@ -31,6 +31,8 @@ Room::Room()
 
 	// Populate map items and win condition
 	room_map[5][2] = 'l';
+	room_map[1][4] = 'b';
+	room_map[2][10] = 'k';
 	room_map[7][14] = 'w';
 }
 
@@ -38,18 +40,29 @@ Room::~Room()
 {
 	delete lamp;
 	lamp = nullptr;
+	delete key;
+	key = nullptr;
 }
 
 const void Room::Description(int x, int y)
 {
 	if (room_map[x][y] == 'p') {
-		cout << "\nYou found a secret panel in the wall! What's going on here???\n";
 		room_map[x][y] = '-';
 	}
 	else if (room_map[x][y] == 'l') {
 		lamp = new Lamp;
 		room_map[x][y] = '-'; 
 		lamp->Description();
+	}
+	else if (room_map[x][y] == 'b') {
+		item = new Book;
+		room_map[x][y] = '-';
+		item->Description();
+	}
+	else if (room_map[x][y] == 'k') {
+		key = new Key;
+		room_map[x][y] = '-';
+		key->Description();
 	}
 }
 

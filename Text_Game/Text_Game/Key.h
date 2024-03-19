@@ -1,10 +1,10 @@
 #pragma once
 #include "Item.h"
 
-class BoxOfDonuts : public Item
+class Key : public Item
 {
 public:
-	BoxOfDonuts();
+	Key();
 public:
 	const void Description() override; 
 	void Use() override; 

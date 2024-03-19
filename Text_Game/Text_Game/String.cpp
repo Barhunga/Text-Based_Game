@@ -253,7 +253,7 @@ String& String::Replace(const String& _find, const String& _replace)
 // Wait for input in the console window and store the result
 String& String::ReadFromConsole()
 {
-	cout << "Enter input\n";
+	cout << "\nEnter input\n";
 	char input[1000];
 	cin.getline(input, 1000);
 	*this = input;
