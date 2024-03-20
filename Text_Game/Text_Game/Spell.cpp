@@ -37,8 +37,13 @@ void Spell::Description()
 
 void Spell::Cast()
 {
-	cout << "\nYou channel the power of the voice you heard earlier.\n\n";
-	if (!casted) casted = true;
-	else casted = false;
+	if (!casted) {
+		cout << "\nYou channel the power of the voice you heard earlier.\n\n";
+		casted = true;
+	}
+	else {
+		cout << "\nYou stop channeling the power of the voice you heard earlier.\n\n";
+		casted = false;
+	}
 	system("pause");
 }
