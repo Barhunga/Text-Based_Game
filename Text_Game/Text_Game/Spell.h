@@ -10,7 +10,6 @@ public:
 	void Description();
 	void Cast();
 public:
-	String spell_name;
 	bool casted;
 private:
 	char spell_id;

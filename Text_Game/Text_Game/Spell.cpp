@@ -4,8 +4,6 @@ Spell::Spell(char id)
 {
 	casted = false;
 	spell_id = id;
-	if (spell_id == 'p') spell_name = String("Portalise"); 
-	//else if (spell_id == 'c') spell_name = String("");	
 }
 
 void Spell::Description()
@@ -23,13 +21,24 @@ void Spell::Description()
 	             awaits on the other side..."
 	)" << endl;
 	}
-	//else if (spell_id == 'c')
-	//	cout << "\nYou found a nice spring! " << spell_name.CStr() << " \n";	
+	else if (spell_id == 'f'){
+		cout << R"(
+	   You found a nice spring! You hear a voice speak
+	         to you from inside as you walk in.
+
+	           "You were wise to come here."
+
+	"I shall bestow my power upon you. Should you attempt
+	 to use it, you will find yourself suddenly aware of
+	     anything of use to you here on this island."
+	)" << endl; 
+	}	
 }
 
 void Spell::Cast()
 {
 	cout << "\nYou channel the power of the voice you heard earlier.\n\n";
-	casted = true;
+	if (!casted) casted = true;
+	else casted = false;
 	system("pause");
 }

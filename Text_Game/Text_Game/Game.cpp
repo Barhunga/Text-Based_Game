@@ -80,7 +80,15 @@ void Game::Print_Map()
 			if (x == player->x && y == player->y) {
 				cout << " O";
 			}
-			else if (room.room_map[x][y] != '-' && room.room_map[x][y] != ' ') cout << " ?";
+			else if (room.room_map[x][y] != '-' && room.room_map[x][y] != ' ') {
+				// Adjusts map printing for spell Foresight
+				if (room.spell_01) {
+					if (room.spell_01->casted) cout << " ?";
+					else cout << " -";
+				}
+				else if (room.room_map[x][y] == 'f') cout << " ?";
+				else cout << " -";
+			}
 			else cout << " " << room.room_map[x][y];
 		}
 		cout << endl << " ";
@@ -101,7 +109,7 @@ void Game::Move()
 	if (room.key) cout << "Keys: " << room.key->count << endl; 
 	if (room.spell_01 || room.spell_02) {
 		cout << "\nSpells:\n";
-		//if (room.spell_01) cout << "";
+		if (room.spell_01) cout << "Foresight (F)\n";
 		if (room.spell_02) cout << "Portalise (P)\n";
 	}
 	// Takes input from the player and converts to lowercase for easier handling
@@ -110,7 +118,12 @@ void Game::Move()
 	input->ToLower();
 	// Handles moving up
 	if (input->EqualTo("up") == true) {
-		if (room.room_map[player->x - 1][player->y] && room.room_map[player->x - 1][player->y] != ' ') player->x--;
+		if (room.room_map[player->x - 1][player->y] && room.room_map[player->x - 1][player->y] != ' ') {
+			if (room.room_map[player->x - 1][player->y] == 'f') {
+				player->Add_Spell("Foresight");
+			}
+			player->x--;
+		}
 		else {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
 			Move();
@@ -118,7 +131,12 @@ void Game::Move()
 	}
 	// Handles moving down
 	else if (input->EqualTo("down") == true) {
-		if (room.room_map[player->x + 1][player->y] && room.room_map[player->x + 1][player->y] != ' ') player->x++;
+		if (room.room_map[player->x + 1][player->y] && room.room_map[player->x + 1][player->y] != ' ') {
+			if (room.room_map[player->x + 1][player->y] == 'f') {
+				player->Add_Spell("Foresight");
+			}
+			player->x++;
+		}
 		else if (player->y >= room.map_length && player->x != room.map_height - 1) {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
 			Move(); 
@@ -132,7 +150,10 @@ void Game::Move()
 	else if (input->EqualTo("left") == true) {
 		if (room.room_map[player->x][player->y - 1] && room.room_map[player->x][player->y - 1] != ' ') {
 			if (room.room_map[player->x][player->y - 1] == 'p') {
-				player->spells.push_back("Portalise");
+				player->Add_Spell("Portalise");
+			}
+			if (room.room_map[player->x][player->y - 1] == 'f') {
+				player->Add_Spell("Foresight"); 
 			}
 			player->y--;
 		}
@@ -143,7 +164,12 @@ void Game::Move()
 	}
 	// Handles moving right
 	else if (input->EqualTo("right") == true) {
-		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ' && room.room_map[player->x][player->y + 1] != 's') player->y++;
+		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ' && room.room_map[player->x][player->y + 1] != 's') {
+			if (room.room_map[player->x][player->y + 1] == 'f') {
+				player->Add_Spell("Foresight");
+			}
+			player->y++;
+		}
 		else if (room.room_map[player->x][player->y + 1] == 's' && room.key) {
 			cout << "\nYou found a secret panel in the wall! What's going on here???\n";
 			room.key->Use();
@@ -168,7 +194,11 @@ void Game::Move()
 		}
 	// Handles using spell Portalise
 	else if (input->EqualTo("p") && room.spell_02 != nullptr) {
-		room.spell_02->Cast();
+		room.spell_02->Cast(); 
+	}	
+	// Handles using spell Foresight
+	else if (input->EqualTo("f") && room.spell_01 != nullptr) {
+		room.spell_01->Cast();
 	}
 	// Handles spell search 
 	else if (input->EqualTo("search")) {

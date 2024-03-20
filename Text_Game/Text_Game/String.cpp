@@ -279,6 +279,23 @@ bool String::operator!=(const String& _other)
 	return !(*this == _other);
 }
 
+bool String::operator<(const String& _other)
+{
+	for (size_t i = 0; i < Length(); i++) {
+		if (_string[i] < _other[i]) return true;
+		else if (_string[i] == _other[i]) continue;
+		else return false;
+	}
+	if (Length() == _other.Length()) return false;
+	return true;
+	//return strcmp(_string, _other._string) < 0;
+}
+
+bool String::operator>(const String& _other)
+{
+	return strcmp(_string, _other._string) > 0;
+}
+
 // Replaces the characters in lhs with the characters in rhs
 String& String::operator=(const String& _str)
 {

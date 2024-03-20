@@ -33,7 +33,7 @@ Room::Room()
 	room_map[5][2] = 'l';
 	room_map[1][4] = 'b';
 	room_map[2][10] = 'k';
-	//room_map[6][9] = 'c';
+	room_map[6][9] = 'f';
 	room_map[7][14] = 'p';
 }
 
@@ -72,11 +72,11 @@ const void Room::Description(int x, int y)
 		room_map[x][y] = '-';
 		key->Description();
 	}	
-	//else if (room_map[x][y] == 'c') {
-	//	spell_01 = new Spell("", 'c');
-	//	room_map[x][y] = '-';
-	//	spell_01->Description();
-	//}	
+	else if (room_map[x][y] == 'f') {
+		spell_01 = new Spell('f');
+		room_map[x][y] = '-';
+		spell_01->Description();
+	}	
 	else if (room_map[x][y] == 'p') {
 		spell_02 = new Spell('p');
 		room_map[x][y] = '-';
