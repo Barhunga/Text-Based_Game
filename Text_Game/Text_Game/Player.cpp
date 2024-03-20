@@ -32,19 +32,20 @@ void Player::Add_Spell(String spell)
 
 bool Player::Find_Spell(String spell)
 {
+	spell.ToLower();
 	// Binary search
-	size_t L = 0;
-	size_t R = spells.size() - 1;
-	while (L <= R) {
-		size_t M = (L + R) / 2;
-		if (spells[M].ToLower() == spell.ToLower()) {
-			cout << "\nSpell found!\n" << endl;
+	int L = 0; 
+	int R = spells.size() - 1; 
+	while (L <= R) { 
+		int M = (L + R) / 2; 
+		if (spells[M] == spell) { 
+			cout << "\nSpell found!\n" << endl; 
 			return true;
 		}
-		if (spells[M].ToLower() < spell.ToLower()) L = M + 1;
-		else if (spells[M].ToLower() > spell.ToLower()) R = M - 1;
-		}
-	cout << "\nSpell not found.\n" << endl;
+		if (spells[M] < spell) L = M + 1; 
+		else if (spells[M] > spell) R = M - 1; 
+		} 
+	cout << "\nSpell not found.\n" << endl; 
 	return false;
 	// Regular search
 	//for (size_t i = 0; i < spells.size(); i++) {

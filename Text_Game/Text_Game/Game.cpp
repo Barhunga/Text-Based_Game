@@ -106,7 +106,7 @@ void Game::Move()
 	cout << "\nWhich direction would you like to move? (Up/Down/Left/Right)\n";
 	if (room.lamp) cout << "Use lamp (L)\n";
 	if (room.book) cout << "Read book (B)\n";
-	if (room.key) cout << "Keys: " << room.key->count << endl; 
+	if (room.key) cout << "Keys: " << room.key->count << endl;
 	if (room.spell_01 || room.spell_02) {
 		cout << "\nSpells:\n";
 		if (room.spell_01) cout << "Foresight (F)\n";
@@ -117,7 +117,7 @@ void Game::Move()
 	input->ReadFromConsole();
 	input->ToLower();
 	// Handles moving up
-	if (input->EqualTo("up") == true) {
+	if (input->EqualTo("up") || input->EqualTo("north") == true) {
 		if (room.room_map[player->x - 1][player->y] && room.room_map[player->x - 1][player->y] != ' ') {
 			if (room.room_map[player->x - 1][player->y] == 'f') {
 				player->Add_Spell("Foresight");
@@ -130,7 +130,7 @@ void Game::Move()
 		}
 	}
 	// Handles moving down
-	else if (input->EqualTo("down") == true) {
+	else if (input->EqualTo("down") || input->EqualTo("south") == true) {
 		if (room.room_map[player->x + 1][player->y] && room.room_map[player->x + 1][player->y] != ' ') {
 			if (room.room_map[player->x + 1][player->y] == 'f') {
 				player->Add_Spell("Foresight");
@@ -139,7 +139,7 @@ void Game::Move()
 		}
 		else if (player->y >= room.map_length && player->x != room.map_height - 1) {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
-			Move(); 
+			Move();
 		}
 		else {
 			cout << "\nThat way goes right into the ocean! Now is not the time for a swim\n";
@@ -147,7 +147,7 @@ void Game::Move()
 		}
 	}
 	// Handles moving left
-	else if (input->EqualTo("left") == true) {
+	else if (input->EqualTo("left") || input->EqualTo("west") == true) {
 		if (room.room_map[player->x][player->y - 1] && room.room_map[player->x][player->y - 1] != ' ') {
 			if (room.room_map[player->x][player->y - 1] == 'p') {
 				player->Add_Spell("Portalise");
@@ -163,7 +163,7 @@ void Game::Move()
 		}
 	}
 	// Handles moving right
-	else if (input->EqualTo("right") == true) {
+	else if (input->EqualTo("right") || input->EqualTo("east") == true) {
 		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ' && room.room_map[player->x][player->y + 1] != 's') {
 			if (room.room_map[player->x][player->y + 1] == 'f') {
 				player->Add_Spell("Foresight");
