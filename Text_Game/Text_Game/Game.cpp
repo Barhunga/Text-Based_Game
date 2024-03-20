@@ -14,11 +14,14 @@ Game::~Game()
 void Game::Run()
 {
 	Intro();
-	while (room.room_map[player->x][player->y] != 'w'){ // current wincon
+	// Game loop
+	running = true;
+	while (running == true){ 
 		system("cls"); 
 		Print_Map();
 		room.Description(player->x, player->y); 
 		Move(); 
+		Check_For_Win();
 	}
 	Ending();
 }
@@ -45,15 +48,32 @@ void Game::Intro()
 void Game::Ending()
 {
 	system("cls");
-	cout << "\nYou win!\n";
+	cout << R"(
+	  You wonder in amazement as to what exists in front
+	of you. It's an otherworldly portal! Without a second
+	thought, you dive on in and hope for the best. In the
+	 blink of an eye you spawn back in a familiar place,
+	        it's your home. You finally did it...
+	
+	)" << endl;
+	system("pause");
+	cout << R"(
+	                  Congratulations
+	)" << endl;
+	system("pause");
+	cout << R"(
+	                    You're home.
+	)" << endl;
 }
 
 void Game::Print_Map()
 {
+	// Adjusts map printing size for lamp use
 	int l = room.map_length;
 	if (room.lamp) {
 		if (room.lamp->turned_on) l = room.full_length;
 	}
+	// Prints map
 	cout << " ";
 	for (int x = 1; x < room.map_height; x++) {
 		for (int y = 0; y < l; y++) { 
@@ -74,13 +94,21 @@ void Game::Print_Map()
 
 void Game::Move()
 {
+	// Presents the player with the options they have available
 	cout << "\nWhich direction would you like to move? (Up/Down/Left/Right)\n";
-	if (room.lamp) cout << "Use lamp: L\n";
-	if (room.book) cout << "Read book: B\n";
-	if (room.key) cout << "Keys: " << room.key->count << endl;
+	if (room.lamp) cout << "Use lamp (L)\n";
+	if (room.book) cout << "Read book (B)\n";
+	if (room.key) cout << "Keys: " << room.key->count << endl; 
+	if (room.spell_01 || room.spell_02) {
+		cout << "\nSpells:\n";
+		//if (room.spell_01) cout << "";
+		if (room.spell_02) cout << "Portalise (P)\n";
+	}
+	// Takes input from the player and converts to lowercase for easier handling
 	String* input = new String();
 	input->ReadFromConsole();
 	input->ToLower();
+	// Handles moving up
 	if (input->EqualTo("up") == true) {
 		if (room.room_map[player->x - 1][player->y] && room.room_map[player->x - 1][player->y] != ' ') player->x--;
 		else {
@@ -88,6 +116,7 @@ void Game::Move()
 			Move();
 		}
 	}
+	// Handles moving down
 	else if (input->EqualTo("down") == true) {
 		if (room.room_map[player->x + 1][player->y] && room.room_map[player->x + 1][player->y] != ' ') player->x++;
 		else if (player->y >= room.map_length && player->x != room.map_height - 1) {
@@ -99,16 +128,23 @@ void Game::Move()
 			Move();
 		}
 	}
+	// Handles moving left
 	else if (input->EqualTo("left") == true) {
-		if (room.room_map[player->x][player->y - 1] && room.room_map[player->x][player->y - 1] != ' ') player->y--;
+		if (room.room_map[player->x][player->y - 1] && room.room_map[player->x][player->y - 1] != ' ') {
+			if (room.room_map[player->x][player->y - 1] == 'p') {
+				player->spells.push_back("Portalise");
+			}
+			player->y--;
+		}
 		else {
 			cout << "\nThere's something blocking the way, might need to try a different way\n";
 			Move();
 		}
 	}
+	// Handles moving right
 	else if (input->EqualTo("right") == true) {
-		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ' && room.room_map[player->x][player->y + 1] != 'p') player->y++;
-		else if (room.room_map[player->x][player->y + 1] == 'p' && room.key) {
+		if (room.room_map[player->x][player->y + 1] && room.room_map[player->x][player->y + 1] != ' ' && room.room_map[player->x][player->y + 1] != 's') player->y++;
+		else if (room.room_map[player->x][player->y + 1] == 's' && room.key) {
 			cout << "\nYou found a secret panel in the wall! What's going on here???\n";
 			room.key->Use();
 			player->y++;
@@ -118,6 +154,7 @@ void Game::Move()
 			Move();
 		}
 	}
+	// Handles using the lamp
 	else if (input->EqualTo("l") && room.lamp != nullptr) {
 		if (player->y < room.map_length) {
 			cout << "\nYou can't use that here\n";
@@ -125,12 +162,34 @@ void Game::Move()
 		}
 		else room.lamp->Use();
 	}
+	// Handles reading the book
 	else if (input->EqualTo("b") && room.book != nullptr) {
 		room.book->Use();
 		}
+	// Handles using spell Portalise
+	else if (input->EqualTo("p") && room.spell_02 != nullptr) {
+		room.spell_02->Cast();
+	}
+	// Handles spell search 
+	else if (input->EqualTo("search")) {
+		cout << "\nWhich spell would you like to search for?\n";
+		String* search = new String;
+		search->ReadFromConsole();
+		search->ToLower();
+		player->Find_Spell(search->CStr()); 
+		system("pause");
+	}
+	// Handles invalid input
 	else {
 		cout << "\nNot a valid input.\n";
 		Move();
+	}
+}
+
+void Game::Check_For_Win()
+{
+	if (room.spell_02) {
+		if (room.spell_02->casted == true) running = false;
 	}
 }
 

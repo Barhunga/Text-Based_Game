@@ -4,6 +4,7 @@
 #include "Lamp.h"
 #include "Book.h"
 #include "Key.h"
+#include "Spell.h"
 
 class Room
 {
@@ -16,7 +17,8 @@ public:
 	Lamp* lamp;
 	Item* book;
 	Key* key;
-	String description;
+	Spell* spell_01;
+	Spell* spell_02;
 	int map_height;
 	int map_length;
 	int full_length;

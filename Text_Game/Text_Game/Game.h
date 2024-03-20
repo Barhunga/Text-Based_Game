@@ -12,8 +12,11 @@ public:
 	void Ending();
 	void Print_Map();
 	void Move();
+	void Check_For_Win();
 public:
 	Room room; 
 	Player* player;
+private:
+	bool running;
 };
 

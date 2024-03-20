@@ -13,6 +13,6 @@ const void Key::Description()
 void Key::Use()
 {
 	count -= 1;
-	cout << "\nYou placed your key into a small hole in the wall\n" << endl;
+	cout << "\nYou place your key into a small hole in the wall\n" << endl;
 	system("pause");
 }
